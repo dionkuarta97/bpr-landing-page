@@ -4,17 +4,48 @@ import { Link } from "react-router";
 import { Button, Select } from "@material-tailwind/react";
 import SelectOption from "@material-tailwind/react/components/Select/SelectOption";
 const Publikasi = () => {
-  const { data, disableSebelumnya, disableSelanjutnya, appedSearchParams } =
-    usePublikasiController();
+  const {
+    data,
+    disableSebelumnya,
+    disableSelanjutnya,
+    appedSearchParams,
+    tahun,
+    onTahunChange,
+    tahunParam,
+  } = usePublikasiController();
   return (
     <div className="w-full pr-4 flex flex-col gap-4">
       <div className="flex py-4 flex-col gap-4">
         <div className="w-fit">
-          <Select className="" label="Tahun">
-            <SelectOption>
-              <Typography variant="paragraph">Semua</Typography>
-            </SelectOption>
-          </Select>
+          {tahun && tahun.length > 0 && (
+            <Select
+              className="w-full"
+              label="Tahun"
+              defaultValue={tahunParam}
+              value={tahunParam}
+              onChange={(value) => onTahunChange(value || "Semua")}
+            >
+              {[
+                {
+                  label: "Semua",
+                  value: "Semua",
+                },
+
+                ...tahun.map((item) => ({
+                  label: item,
+                  value: item,
+                })),
+              ].map((item) => (
+                <SelectOption
+                  className="text-primary-dark"
+                  key={item.value}
+                  value={item.value}
+                >
+                  {item.label}
+                </SelectOption>
+              ))}
+            </Select>
+          )}
         </div>
         <Typography
           variant="paragraph"
@@ -66,7 +97,7 @@ const Publikasi = () => {
                   {item.tipe}
                 </Typography>
                 <Link
-                  to={`/detail-produk/${item.id}`}
+                  to={`/detail-publikasi/${item.id}`}
                   className="transition-all border-b border-primary-dark duration-300"
                 >
                   <Typography

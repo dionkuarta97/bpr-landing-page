@@ -1,25 +1,17 @@
 import api from "../axios";
 import { useQuery } from "@tanstack/react-query";
-export interface Banner {
-  id: number;
-  judul: string | null;
-  deskripsi: string | null;
-  path: string;
-  created_at: string;
-  updated_at: string;
-}
 
-const useGetBanner = () => {
-  const getBanner = async (): Promise<Banner[]> => {
-    const response = await api.get("/profile/banner");
+const useGetTahun = () => {
+  const getTahun = async (): Promise<string[]> => {
+    const response = await api.get("/publikasi/tahun");
     return response.data.data;
   };
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["banner"],
-    queryFn: getBanner,
+    queryKey: ["tahun"],
+    queryFn: getTahun,
   });
   return { data, isLoading, error };
 };
 
-export default useGetBanner;
+export default useGetTahun;

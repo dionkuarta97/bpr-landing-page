@@ -1,13 +1,13 @@
-import useGetDetailProdukController from "./libs/useGetDetailProdukController";
+import useGetDetailPublikasiController from "./libs/useDetailPublikasiController";
 import "react-quill/dist/quill.bubble.css";
 import ReactQuill from "react-quill-new";
-import { Typography } from "@material-tailwind/react";
-import "./index.css";
+import { Button, Typography } from "@material-tailwind/react";
 import ProdukCol from "../../components/produk-col";
 import PublikasiCol from "../../components/publikasi-col";
-const DetailProduk = () => {
-  const { data, isLoading, error } = useGetDetailProdukController();
-
+import { FaFilePdf } from "react-icons/fa";
+const DetailPublikasi = () => {
+  const { data, isLoading, error } = useGetDetailPublikasiController();
+  console.log(data);
   return (
     <div className="lg:px-[15vw] flex lg:flex-row gap-4 flex-col lg:py-10 p-4 bg-white w-full min-h-screen">
       <div className="flex w-full lg:w-4/5 flex-col gap-4">
@@ -32,9 +32,25 @@ const DetailProduk = () => {
               {data?.deskripsi}
             </Typography>
           </div>
+          {data?.pdfPath && (
+            <a
+              href={data?.pdfPath}
+              className="py-8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button
+                color="amber"
+                className="w-fit flex items-center gap-2 flex-row"
+              >
+                <FaFilePdf className="w-6 h-6" />
+                Lihat PDF
+              </Button>
+            </a>
+          )}
           <div className="w-full h-full">
             <ReactQuill
-              value={data?.content}
+              value={data?.content || ""}
               readOnly={true}
               theme={"bubble"}
             />
@@ -42,12 +58,12 @@ const DetailProduk = () => {
         </div>
       </div>
       <div className="hidden lg:block flex flex-col lg:w-1/5">
-        <ProdukCol id={data?.id?.toString()} />
+        <PublikasiCol id={data?.id?.toString()} />
         <div className="h-8" />
-        <PublikasiCol />
+        <ProdukCol />
       </div>
     </div>
   );
 };
 
-export default DetailProduk;
+export default DetailPublikasi;

@@ -1,9 +1,10 @@
 import { useSearchParams } from "react-router";
 import useGetPengumuman from "../../../hooks/useGetPengumuman";
 import { useMemo } from "react";
-
+import useGetTahun from "../../../hooks/useGetTahun";
 const usePublikasiController = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { data: tahun } = useGetTahun();
   const { data } = useGetPengumuman({
     page: searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1,
     perPage: 10,
@@ -11,6 +12,7 @@ const usePublikasiController = () => {
     tahun: searchParams.get("tahun") || undefined,
   });
   const page = searchParams.get("page") || 1;
+  const tahunParam = searchParams.get("tahun") || "Semua";
 
   const disableSebelumnya = useMemo(() => {
     if (page) {
@@ -39,7 +41,26 @@ const usePublikasiController = () => {
     setSearchParams(searchParams);
   };
 
-  return { data, disableSebelumnya, disableSelanjutnya, appedSearchParams };
+  const onTahunChange = (value: string) => {
+    if (value === "Semua") {
+      searchParams.delete("tahun");
+      searchParams.delete("page");
+    } else {
+      searchParams.set("tahun", value);
+      searchParams.set("page", "1");
+    }
+    setSearchParams(searchParams);
+  };
+
+  return {
+    data,
+    disableSebelumnya,
+    disableSelanjutnya,
+    appedSearchParams,
+    tahun,
+    onTahunChange,
+    tahunParam,
+  };
 };
 
 export default usePublikasiController;

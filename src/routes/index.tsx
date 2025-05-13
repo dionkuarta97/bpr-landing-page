@@ -6,6 +6,7 @@ import ProdukKami from "../pages/produk-kami";
 import ContentWrapper from "../components/wrapper/content-wrapper";
 import DetailProduk from "../pages/detail-produk";
 import Publikasi from "../pages/publikasi";
+import DetailPublikasi from "../pages/detail-publikasi";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/detail-produk/:id",
         element: <DetailProduk />,
+      },
+      {
+        path: "/detail-publikasi/:id",
+        element: <DetailPublikasi />,
       },
     ],
   },
