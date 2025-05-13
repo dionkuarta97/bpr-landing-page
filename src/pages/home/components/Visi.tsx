@@ -1,10 +1,10 @@
 import Typography from "@material-tailwind/react/components/Typography";
 import useVisiController from "../libs/useVisiController";
-import { Carousel } from "@material-tailwind/react";
+import { Carousel, IconButton } from "@material-tailwind/react";
 import visiImage from "../../../assets/image/visi-image.png";
 const Visi = () => {
   const { data, isLoading, error, struktur } = useVisiController();
-  console.log(data);
+
   return (
     <div className="w-full lg:mt-10 flex lg:flex-row flex-col gap-12 lg:justify-between  lg:px-20 px-4">
       <div className="w-full flex flex-col  gap-4 lg:w-1/2">
@@ -38,7 +38,62 @@ const Visi = () => {
           Struktur Perusahaan
         </Typography>
         <div className="w-full flex flex-row gap-4">
-          <Carousel className="rounded-lg" autoplay placeholder="placeholder">
+          <Carousel
+            prevArrow={({ handlePrev }) => (
+              <IconButton
+                placeholder="placeholder"
+                variant="text"
+                color="white"
+                size="lg"
+                onClick={handlePrev}
+                className="!absolute top-2/4 left-4 -translate-y-2/4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="gray"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                  />
+                </svg>
+              </IconButton>
+            )}
+            nextArrow={({ handleNext }) => (
+              <IconButton
+                placeholder="placeholder"
+                variant="text"
+                color="white"
+                size="lg"
+                onClick={handleNext}
+                className="!absolute top-2/4 !right-4 -translate-y-2/4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="gray"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </IconButton>
+            )}
+            navigation={() => <div />}
+            className="rounded-lg"
+            autoplay
+            placeholder="placeholder"
+          >
             {struktur?.map((item) => (
               <>
                 <div
@@ -68,7 +123,7 @@ const Visi = () => {
                     className="text-gray-500 "
                     variant="paragraph"
                   >
-                    "{item.quote}"
+                    {item.jabatan}
                   </Typography>
                 </div>
               </>

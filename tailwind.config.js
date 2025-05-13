@@ -19,5 +19,5 @@ export default withMT({
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 });

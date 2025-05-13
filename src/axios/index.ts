@@ -1,7 +1,8 @@
 import axios from "axios";
-
+//https://api.bprsagodharma.com/api/public
+//http://localhost:8000/api/public
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/public",
+  baseURL: "http://localhost:8000/api/public",
 });
 
 export default api;
